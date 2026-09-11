@@ -61,19 +61,16 @@ export const Dashboard = () => {
       <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-stone-900 via-[#392817] to-[#251A0E] p-6 sm:p-8 text-white shadow-lg border border-gold-900/30">
         <div className="relative z-10 max-w-2xl space-y-2">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gold-500/20 border border-gold-500/30 backdrop-blur-md text-xs font-semibold text-gold-300">
-            <Sparkles className="w-3.5 h-3.5" />
             <span>Floral & Event Decor CMS</span>
           </div>
           <h2 className="text-2xl sm:text-3xl font-serif font-bold tracking-tight">
             ස්වස්තික Floral Decor
           </h2>
-          <p className="text-stone-300 text-xs sm:text-sm leading-relaxed">
-            Manage your wedding decorations, create categories with slider displays, and batch-upload
-            high-resolution photos converted directly to WebP.
-          </p>
+          
 
           <div className="flex flex-wrap gap-3 pt-3">
             <button
+              id="tour-btn-batch-upload"
               onClick={() => navigate('/upload')}
               className="inline-flex items-center gap-2 px-4 py-2.5 bg-gold-500 hover:bg-gold-400 text-stone-950 text-xs font-bold rounded-xl transition-all shadow-md"
             >
@@ -81,6 +78,7 @@ export const Dashboard = () => {
               <span>Batch Upload Images</span>
             </button>
             <button
+              id="tour-btn-new-category"
               onClick={() => setIsCategoryModalOpen(true)}
               className="inline-flex items-center gap-2 px-4 py-2.5 bg-white/10 hover:bg-white/20 text-white text-xs font-semibold rounded-xl backdrop-blur-xs transition-all border border-white/10"
             >
@@ -95,7 +93,7 @@ export const Dashboard = () => {
       </div>
 
       {/* KPI Stats Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+      <div id="tour-kpi-stats" className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
         <div className="bg-white p-5 rounded-2xl border border-stone-200/80 shadow-xs flex items-center justify-between">
           <div>
             <p className="text-xs font-semibold text-stone-500 uppercase tracking-wider">Total Categories</p>

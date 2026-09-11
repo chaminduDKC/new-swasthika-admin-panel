@@ -127,7 +127,6 @@ export const CategoryModal = ({ isOpen, onClose, onCreated, onUpdated, category 
               </>
             ) : (
               <>
-                <span className="text-xl">🌸</span>
                 <span>Create New Category</span>
               </>
             )}
@@ -155,6 +154,13 @@ export const CategoryModal = ({ isOpen, onClose, onCreated, onUpdated, category 
               <span>{success}</span>
             </div>
           )}
+        
+             <div className="flex items-center gap-2 p-3 text-sm text-red-700 bg-red-50 border border-red-200 rounded-xl">
+              <span>#1 Priority-Primary Categories</span>
+              <span>#2 Priority-Secondary Categories</span>
+              <span>#3 Priority-Other Categories</span>
+            </div>
+          
 
           <div>
             <label className="block text-xs font-semibold text-stone-700 uppercase tracking-wider mb-1.5">
@@ -192,9 +198,9 @@ export const CategoryModal = ({ isOpen, onClose, onCreated, onUpdated, category 
               onChange={(e) => setType(e.target.value)}
               className="w-full px-3.5 py-2.5 text-sm bg-white border border-stone-300 rounded-xl focus:ring-2 focus:ring-gold-500/20 focus:border-gold-600 outline-none transition-all"
             >
-              <option value="primary">Primary Category</option>
-              <option value="secondary">Secondary Category</option>
-              <option value="other">Other Decoration</option>
+              <option value="primary">Primary Category - Show On Top</option>
+              <option value="secondary">Secondary Category - After Primary</option>
+              <option value="other">Other Decoration - After Secondary</option>
             </select>
           </div>
 

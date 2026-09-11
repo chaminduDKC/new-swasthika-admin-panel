@@ -3,13 +3,19 @@ import { Outlet } from 'react-router-dom';
 import { Sidebar } from './Sidebar';
 import { Navbar } from './Navbar';
 import { ChangePasswordModal } from './ChangePasswordModal';
+import { AdminTour } from './AdminTour';
+import { useTour } from '../context/TourContext';
 
 export const Layout = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [passwordModalOpen, setPasswordModalOpen] = useState(false);
+  const { isTourRunning, stopTour } = useTour();
 
   return (
     <div className="min-h-screen bg-stone-50 flex">
+      {/* Interactive Admin Guided Tour */}
+      <AdminTour run={isTourRunning} onFinish={stopTour} />
+
       {/* Sidebar */}
       <Sidebar
         isOpen={sidebarOpen}

@@ -234,7 +234,7 @@ export const BatchUpload = () => {
         <div className="bg-white p-6 rounded-3xl border border-stone-200/80 shadow-xs space-y-4">
           <div className="flex items-center gap-2 text-stone-800 font-semibold text-sm border-b border-stone-100 pb-3">
             <span className="w-6 h-6 rounded-full bg-gold-100 text-gold-900 border border-gold-300 flex items-center justify-center text-xs font-bold">1</span>
-            <span>Select Target Category (Mandatory)</span>
+            <span>Select Target Category Or Create One</span>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-end">
@@ -267,15 +267,17 @@ export const BatchUpload = () => {
                 </select>
               )}
             </div>
+            
 
             <div>
+              
               <button
                 type="button"
                 onClick={() => setIsCategoryModalOpen(true)}
                 className="w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-gold-50 hover:bg-gold-100 text-gold-900 text-sm font-semibold rounded-xl border border-gold-300 transition-colors"
               >
                 <Plus className="w-4 h-4 text-gold-600" />
-                <span>+ Create New Category</span>
+                <span>Create New Category</span>
               </button>
             </div>
           </div>
@@ -302,7 +304,7 @@ export const BatchUpload = () => {
         <div className="bg-white p-6 rounded-3xl border border-stone-200/80 shadow-xs space-y-4">
           <div className="flex items-center gap-2 text-stone-800 font-semibold text-sm border-b border-stone-100 pb-3">
             <span className="w-6 h-6 rounded-full bg-gold-100 text-gold-900 border border-gold-300 flex items-center justify-center text-xs font-bold">2</span>
-            <span>Decoration & Venue Details</span>
+            <span>Decoration & Venue Details ( These details will apply to all images you upload this time )</span>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

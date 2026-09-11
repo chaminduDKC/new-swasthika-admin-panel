@@ -1,10 +1,12 @@
 import React from 'react';
-import { Menu, UploadCloud } from 'lucide-react';
+import { Menu, UploadCloud, Sparkles } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { useTour } from '../context/TourContext';
 
 export const Navbar = ({ onOpenSidebar, onOpenPasswordModal }) => {
   const { user } = useAuth();
+  const { startTour } = useTour();
 
   return (
     <header className="h-16 bg-white/95 backdrop-blur-sm border-b border-stone-200/90 sticky top-0 z-30 flex items-center justify-between px-4 sm:px-6">
@@ -29,6 +31,15 @@ export const Navbar = ({ onOpenSidebar, onOpenPasswordModal }) => {
 
       {/* Actions */}
       <div className="flex items-center gap-2 sm:gap-3">
+        {/* Guided Tour Trigger Button */}
+        <button
+          onClick={startTour}
+          className="flex items-center gap-1.5 px-3 py-1.5 sm:py-2 text-xs font-semibold text-gold-900 bg-gold-50 hover:bg-gold-100/80 active:bg-gold-200 border border-gold-300 rounded-xl transition-all shadow-2xs"
+          title="Start interactive guided walkthrough"
+        >
+          <span className="hidden sm:inline">Guide Tour</span>
+        </button>
+
         <Link
           to="/upload"
           className="flex items-center gap-2 px-3.5 py-1.5 sm:py-2 text-xs sm:text-sm font-medium text-white bg-gold-600 hover:bg-gold-700 active:bg-gold-800 rounded-xl shadow-xs transition-all"
@@ -39,6 +50,7 @@ export const Navbar = ({ onOpenSidebar, onOpenPasswordModal }) => {
         </Link>
 
         <button
+          id="tour-admin-profile"
           onClick={onOpenPasswordModal}
           title="Admin Account Settings"
           className="flex items-center gap-2 p-1.5 sm:px-3 sm:py-1.5 text-stone-700 hover:text-stone-900 hover:bg-gold-50 rounded-xl border border-stone-200 text-xs sm:text-sm font-medium transition-colors"

@@ -7,20 +7,24 @@ import {
   Image as ImageIcon,
   KeyRound,
   LogOut,
+  User,
   X,
+  Sparkles,
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+import { useTour } from '../context/TourContext';
 import { Logo } from './Logo';
 
 export const Sidebar = ({ isOpen, onClose, onOpenPasswordModal }) => {
   const { user, logout } = useAuth();
+  const { startTour } = useTour();
 
   const navItems = [
-    { to: '/', label: 'Overview', icon: LayoutDashboard },
-    { to: '/categories', label: 'Categories', icon: FolderKanban },
-    { to: '/upload', label: 'Batch Upload', icon: UploadCloud, badge: 'New' },
-    { to: '/gallery', label: 'Decoration Gallery', icon: ImageIcon },
-    { to: '/settings', label: 'Profile', icon: UploadCloud, badge: 'New' },
+    { to: '/', label: 'Overview', icon: LayoutDashboard, id: 'tour-nav-overview' },
+    { to: '/categories', label: 'Categories', icon: FolderKanban, id: 'tour-nav-categories' },
+    { to: '/upload', label: 'Batch Upload', icon: UploadCloud, badge: 'New', id: 'tour-nav-upload' },
+    { to: '/gallery', label: 'Decoration Gallery', icon: ImageIcon, id: 'tour-nav-gallery' },
+    { to: '/settings', label: 'Profile & Settings', icon: User, id: 'tour-nav-settings' },
   ];
 
   return (
@@ -60,6 +64,7 @@ export const Sidebar = ({ isOpen, onClose, onOpenPasswordModal }) => {
             return (
               <NavLink
                 key={item.to}
+                id={item.id}
                 to={item.to}
                 onClick={onClose}
                 end={item.to === '/'}
@@ -84,19 +89,9 @@ export const Sidebar = ({ isOpen, onClose, onOpenPasswordModal }) => {
             );
           })}
 
-          <div className="pt-6 px-3 pb-1 text-[11px] font-bold text-stone-400 uppercase tracking-widest">
-            Security & Account
-          </div>
-          <button
-            onClick={() => {
-              onClose?.();
-              onOpenPasswordModal?.();
-            }}
-            className="w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium text-stone-600 hover:text-stone-900 hover:bg-stone-50 transition-colors"
-          >
-            <KeyRound className="w-4 h-4 shrink-0 text-stone-500" />
-            <span>Change Password</span>
-          </button>
+               
+
+         
         </nav>
 
         {/* User Card & Logout Footer */}

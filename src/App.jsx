@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
+import { TourProvider } from './context/TourContext';
 import { ProtectedRoute } from './components/ProtectedRoute';
 import { Layout } from './components/Layout';
 
@@ -14,31 +15,33 @@ import { Settings } from './pages/Settings';
 export default function App() {
   return (
     <AuthProvider>
-      <BrowserRouter>
-        <Routes>
-          {/* Public Login Route */}
-          <Route path="/login" element={<Login />} />
+      <TourProvider>
+        <BrowserRouter>
+          <Routes>
+            {/* Public Login Route */}
+            <Route path="/login" element={<Login />} />
 
-          {/* Protected Admin Routes */}
-          <Route
-            path="/"
-            element={
-              <ProtectedRoute>
-                <Layout />
-              </ProtectedRoute>
-            }
-          >
-            <Route index element={<Dashboard />} />
-            <Route path="categories" element={<Categories />} />
-            <Route path="upload" element={<BatchUpload />} />
-            <Route path="gallery" element={<Gallery />} />
-            <Route path="settings" element={<Settings />} />
-          </Route>
+            {/* Protected Admin Routes */}
+            <Route
+              path="/"
+              element={
+                <ProtectedRoute>
+                  <Layout />
+                </ProtectedRoute>
+              }
+            >
+              <Route index element={<Dashboard />} />
+              <Route path="categories" element={<Categories />} />
+              <Route path="upload" element={<BatchUpload />} />
+              <Route path="gallery" element={<Gallery />} />
+              <Route path="settings" element={<Settings />} />
+            </Route>
 
-          {/* Fallback */}
-          <Route path="*" element={<Navigate to="/" replace />} />
-        </Routes>
-      </BrowserRouter>
+            {/* Fallback */}
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Routes>
+        </BrowserRouter>
+      </TourProvider>
     </AuthProvider>
   );
 }

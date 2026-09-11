@@ -302,7 +302,7 @@ export const Gallery = () => {
                   </button>
 
                   {/* Edit + Delete buttons (top-right, appear on hover) */}
-                  <div className="absolute top-2.5 right-2.5 flex flex-col gap-1.5 opacity-0 group-hover:opacity-100 transition-all">
+                  <div className="absolute top-2.5 right-2.5 flex flex-col gap-1.5 transition-all">
                     <button
                       onClick={(e) => { e.stopPropagation(); setEditingImage(img); }}
                       title="Edit image"

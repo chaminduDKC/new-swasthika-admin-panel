@@ -11,9 +11,11 @@ import {
   Image as ImageIcon,
   Loader2,
   AlertCircle,
+  ArrowUpDown,
 } from 'lucide-react';
 import { categoryService } from '../api/services';
 import { CategoryModal } from '../components/CategoryModal';
+import { CategoryReorderModal } from '../components/CategoryReorderModal';
 import { LazyImage } from '../components/LazyImage';
 
 export const Categories = () => {
@@ -23,10 +25,28 @@ export const Categories = () => {
   const [search, setSearch] = useState('');
   const [selectedType, setSelectedType] = useState('all');
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+  const [isReorderModalOpen, setIsReorderModalOpen] = useState(false);
   const [editingCategory, setEditingCategory] = useState(null);
   const [deletingId, setDeletingId] = useState(null);
 
   const navigate = useNavigate();
+
+  const handleOrderUpdated = (type, updatedCollection) => {
+    setCategories((prev) => {
+      const updatedMap = new Map(updatedCollection.map((c) => [c.id, c.display_order]));
+      const next = prev.map((c) => {
+        if (updatedMap.has(c.id)) {
+          return { ...c, display_order: updatedMap.get(c.id) };
+        }
+        return c;
+      });
+      return [...next].sort((a, b) => {
+        const orderDiff = (a.display_order ?? 0) - (b.display_order ?? 0);
+        if (orderDiff !== 0) return orderDiff;
+        return new Date(b.created_at) - new Date(a.created_at);
+      });
+    });
+  };
 
   const handleOpenCreate = () => {
     setEditingCategory(null);
@@ -95,13 +115,23 @@ export const Categories = () => {
           </p>
         </div>
 
-        <button
-          onClick={handleOpenCreate}
-          className="inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-gold-600 hover:bg-gold-700 text-white text-sm font-semibold rounded-xl shadow-xs transition-colors"
-        >
-          <Plus className="w-4 h-4" />
-          <span>Create New Category</span>
-        </button>
+        <div className="flex items-center gap-2.5">
+          <button
+            onClick={() => setIsReorderModalOpen(true)}
+            className="inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-white hover:bg-stone-50 text-stone-700 hover:text-stone-900 text-sm font-semibold rounded-xl border border-stone-200 shadow-xs transition-colors"
+          >
+            <ArrowUpDown className="w-4 h-4 text-gold-600" />
+            <span>Reorder Categories</span>
+          </button>
+
+          <button
+            onClick={handleOpenCreate}
+            className="inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-gold-600 hover:bg-gold-700 text-white text-sm font-semibold rounded-xl shadow-xs transition-colors"
+          >
+            <Plus className="w-4 h-4" />
+            <span>Create New Category</span>
+          </button>
+        </div>
       </div>
 
       {/* Filter Bar */}
@@ -182,8 +212,8 @@ export const Categories = () => {
                   className="group-hover:scale-105"
                 />
 
-                {/* Type Badge */}
-                <div className="absolute top-2.5 left-2.5 flex flex-wrap gap-1.5">
+                {/* Type & Order Badges */}
+                <div className="absolute top-2.5 left-2.5 flex flex-wrap gap-1.5 items-center">
                   <span
                     className={`px-2 py-0.5 rounded-md text-[11px] font-bold uppercase tracking-wider ${
                       cat.type === 'primary'
@@ -194,6 +224,10 @@ export const Categories = () => {
                     }`}
                   >
                     {cat.type}
+                  </span>
+
+                  <span className="px-2 py-0.5 rounded-md text-[11px] font-bold bg-black/70 text-gold-300 border border-gold-500/30 backdrop-blur-xs shadow-xs">
+                    #{cat.display_order ?? 1}
                   </span>
                 </div>
 
@@ -275,6 +309,14 @@ export const Categories = () => {
             prev.map((c) => (c.id === updatedCat.id ? { ...updatedCat, image_count: c.image_count } : c))
           );
         }}
+      />
+
+      {/* Category Reorder Modal */}
+      <CategoryReorderModal
+        isOpen={isReorderModalOpen}
+        onClose={() => setIsReorderModalOpen(false)}
+        allCategories={categories}
+        onOrderUpdated={handleOrderUpdated}
       />
     </div>
   );

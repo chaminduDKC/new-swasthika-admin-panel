@@ -40,6 +40,10 @@ export const categoryService = {
     const response = await api.delete(`/categories/${id}`);
     return response.data;
   },
+  reorder: async (categoryIds) => {
+    const response = await api.put('/categories/reorder', { categoryIds });
+    return response.data;
+  },
 };
 
 export const imageService = {
